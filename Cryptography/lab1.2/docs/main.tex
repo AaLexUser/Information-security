@@ -1,0 +1,234 @@
+% !TEX program = xelatex
+\documentclass[a4paper, 14pt]{report}
+
+% Подключение необходимых пакетов для XeLaTeX
+\usepackage{fontspec}                 % Для управления шрифтами
+\usepackage{polyglossia}              % Для поддержки многоязычности
+\setmainlanguage{russian}             % Установка основного языка
+\setotherlanguage{english}            % Дополнительный язык (если требуется)
+\newfontfamily\cyrillicfonttt{Courier New} % Шрифт для моноширинного текста
+% Установка основного шрифта
+\setmainfont{Times New Roman}
+
+% Пакеты для оформления документа
+\usepackage{geometry}                 % Параметры полей
+\usepackage{setspace}                 % Межстрочный интервал
+\usepackage{titlesec}                 % Настройка заголовков
+\usepackage{graphicx}                 % Вставка изображений
+\usepackage{caption}                  % Настройка подписей
+\usepackage{tocloft}                  % Настройка оглавления
+\usepackage{hyperref}                 % Гиперссылки
+\usepackage{listings}                 % Вставка исходного кода
+\usepackage{xcolor}                   % Цвета для оформления кода
+
+% Настройка геометрии страницы
+\geometry{
+    a4paper,
+    left=30mm,
+    right=20mm,
+    top=10mm,
+    bottom=10mm,
+    footskip=0mm
+}
+
+
+% Межстрочный интервал 1.5
+\onehalfspacing
+
+% Настройка заголовков
+\titleformat{\chapter}[block]
+  {\centering\bfseries\Large} % Форматирование заголовка
+  {\chaptername\ \thechapter}{1em}{}
+
+\titleformat{\section}
+  {\centering\bfseries\large}
+  {\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\centering\bfseries\normalsize}
+  {\thesubsection}{1em}{}
+
+% Оглавление без точек после номеров
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+% Подключение пакета listingsutf8 для поддержки UTF-8 в листингах
+\usepackage{listingsutf8}
+
+% Включение ссылок в оглавлении
+\setcounter{tocdepth}{3}
+
+% Настройки для листингов кода
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny,
+    stepnumber=1,
+    numbersep=5pt,
+    tabsize=4,
+    breaklines=true,
+    breakatwhitespace=false,
+    showstringspaces=false,
+    frame=single
+}
+\makeatletter % see https://tex.stackexchange.com/a/320345
+\lst@InputCatcodes
+\def\lst@DefEC{%
+ \lst@CCECUse \lst@ProcessLetter
+  ^^80^^81^^82^^83^^84^^85^^86^^87^^88^^89^^8a^^8b^^8c^^8d^^8e^^8f%
+  ^^90^^91^^92^^93^^94^^95^^96^^97^^98^^99^^9a^^9b^^9c^^9d^^9e^^9f%
+  ^^a0^^a1^^a2^^a3^^a4^^a5^^a6^^a7^^a8^^a9^^aa^^ab^^ac^^ad^^ae^^af%
+  ^^b0^^b1^^b2^^b3^^b4^^b5^^b6^^b7^^b8^^b9^^ba^^bb^^bc^^bd^^be^^bf%
+  ^^c0^^c1^^c2^^c3^^c4^^c5^^c6^^c7^^c8^^c9^^ca^^cb^^cc^^cd^^ce^^cf%
+  ^^d0^^d1^^d2^^d3^^d4^^d5^^d6^^d7^^d8^^d9^^da^^db^^dc^^dd^^de^^df%
+  ^^e0^^e1^^e2^^e3^^e4^^e5^^e6^^e7^^e8^^e9^^ea^^eb^^ec^^ed^^ee^^ef%
+  ^^f0^^f1^^f2^^f3^^f4^^f5^^f6^^f7^^f8^^f9^^fa^^fb^^fc^^fd^^fe^^ff%
+  ^^^^20ac^^^^0153^^^^0152%
+  % Basic Cyrillic alphabet coverage
+  ^^^^0410^^^^0411^^^^0412^^^^0413^^^^0414^^^^0415^^^^0416^^^^0417%
+  ^^^^0418^^^^0419^^^^041a^^^^041b^^^^041c^^^^041d^^^^041e^^^^041f%
+  ^^^^0420^^^^0421^^^^0422^^^^0423^^^^0424^^^^0425^^^^0426^^^^0427%
+  ^^^^0428^^^^0429^^^^042a^^^^042b^^^^042c^^^^042d^^^^042e^^^^042f%
+  ^^^^0430^^^^0431^^^^0432^^^^0433^^^^0434^^^^0435^^^^0436^^^^0437%
+  ^^^^0438^^^^0439^^^^043a^^^^043b^^^^043c^^^^043d^^^^043e^^^^043f%
+  ^^^^0440^^^^0441^^^^0442^^^^0443^^^^0444^^^^0445^^^^0446^^^^0447%
+  ^^^^0448^^^^0449^^^^044a^^^^044b^^^^044c^^^^044d^^^^044e^^^^044f%
+  ^^^^0401^^^^0451%
+  %%%
+  ^^00}
+\lst@RestoreCatcodes
+\makeatother
+
+\begin{document}
+
+
+% Титульный лист
+\begin{titlepage}
+    \centering
+    {\large Федеральное государственное автономное образовательное учреждение высшего образования}\\
+    {\large «Национальный исследовательский университет ИТМО»}\\[0.5cm]
+
+    {\large Факультет программной инженерии и компьютерной техники}\\[3cm]
+
+    {\large \bfseries Лабораторная работа 2}\\[0.5cm]
+    {\large \bfseries «Блочное симметричное шифрование»}\\[1cm]
+
+    {\large Вариант № \underline{2в}}\\[5cm]
+    \begin{flushright}
+        {\large \underline{Группа: P34102}}\\[0.5cm]
+        {\large \underline{Выполнил:} Лапин А.А.}\\[1cm]
+
+        {\large \underline{Проверил:}}\\
+        {\large Рыбаков С.Д.}\\[9cm]
+    \end{flushright}
+
+    {\large Санкт-Петербург}\\
+    {\large 2024г.}
+\end{titlepage}
+
+\setcounter{page}{2}
+% Оглавление
+\tableofcontents
+\newpage
+
+% Введение
+\chapter*{Введение}
+\addcontentsline{toc}{chapter}{Введение}
+Цель работы: изучение структуры и основных принципов работы современных алгоритмов блочного симметричного шифрования, приобретение навыков программной реализации блочных симметричных шифров.
+% Раздел 1
+\chapter{Текст задания}
+Реализовать систему симметричного блочного шифрования, позволяющую шифровать и дешифровать файл на диске с использованием заданного блочного шифра в заданном режиме шифрования.
+
+% Раздел 2: Структура проекта
+\chapter{Структура проекта}
+Структура проекта представлена следующим образом:
+
+\begin{verbatim}
+Cryptography/
+└── lab1.2/
+    ├── src/
+    │   ├── idea.py
+    │   ├── pcbc.py
+    │   └── main.py
+    ├── input.txt
+    ├── encrypted.bin
+    ├── decrypted.txt
+    └── tests/
+        └── test_idea_pcbc_cipher.py
+\end{verbatim}
+
+\section{Описание основных компонентов}
+
+\subsection{idea.py}
+
+Реализация алгоритма IDEA (International Data Encryption Algorithm). Предоставляет методы для выполнения основных операций шифрования и дешифрования блоков данных, а также управления ключевыми раундами.
+
+\subsection{pcbc.py}
+Реализация режима шифрования PCBC (Propagating Cipher Block Chaining). Обеспечивает безопасность шифрования за счет использования цепочки блоков и добавления пропагирующего эффекта ошибок при дешифровке.
+
+\subsection{main.py}
+Основной файл для шифрования и дешифровки файлов. Предоставляет интерфейс командной строки для выполнения операций шифрования и дешифровки, а также управления ключами и инициализационным вектором.
+
+\subsection{test\_idea\_pcbc\_cipher.py}
+
+Набор тестов для проверки корректности реализации алгоритма IDEA и режима шифрования PCBC. Использует библиотеку `pytest` для организации и выполнения тестовых случаев.
+
+
+% Раздел 3: Листинги разработанной программы с комментариями
+\chapter{Листинги разработанной программы с комментариями}
+\section{idea.py}
+\lstinputlisting[language=Python]{../src/idea.py}
+
+\section{pcbc.py}
+\lstinputlisting[language=Python]{../src/pcbc.py}
+
+\section{main.py}
+\lstinputlisting[language=Python]{../src/main.py}
+% Раздел 4: Результаты работы программы
+\chapter{Результаты работы программы}
+
+\section{Пример 1: Шифрование}
+
+\subsection{Исходный текст (input.txt)}
+\begin{lstlisting}
+Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
+\end{lstlisting}
+
+
+\subsection{Команда для шифрования}
+\begin{lstlisting}[language=bash]
+python src/main.py encrypt input.txt encrypted.bin 16bytekeyforIDEA
+\end{lstlisting}
+\subsection{Результат}
+Вывод в консоль:
+\begin{lstlisting}
+File encrypted and saved to encrypted.bin
+\end{lstlisting}
+
+\section{Пример 2: Дешифровка}
+
+\subsection{Исходный текст (`encrypted.bin`):}
+Двоичные данные, не представляемые в текстовом формате
+
+
+\subsection{Команда для дешифровки}
+\begin{lstlisting}[language=bash]
+python src/main.py decrypt encrypted.bin decrypted.txt 16bytekeyforIDEA
+\end{lstlisting}
+
+\subsection{Результат}
+Вывод в консоль:
+\begin{lstlisting}
+File decrypted and saved to decrypted.txt
+\end{lstlisting}
+
+\subsection{Файл decrypted.txt}
+\begin{lstlisting}
+Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
+\end{lstlisting}
+\chapter{Заключение}
+В ходе выполнения лабораторной работы была реализована система симметричного блочного шифрования на основе алгоритма IDEA в режиме PCBC. Программа успешно шифрует и дешифрует файлы, обеспечивая надежную защиту данных. Полученные результаты подтверждают корректность реализации алгоритма и режима шифрования.
+
+\end{document}
