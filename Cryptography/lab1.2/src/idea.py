@@ -1,5 +1,5 @@
 import struct
-from typing import Union, Sequence, List
+from typing import List
 UINT16_MASK: int = (1 << 16) - 1  # 0xFFFF
 def is_uint16(value: int) -> bool:
 	return 0 <= value < (1 << 16)

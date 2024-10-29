@@ -29,3 +29,6 @@ __pycache__
 
 #Other
 gost-requirements.txt
+
+#hydra config
+outputs

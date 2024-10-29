@@ -1,0 +1,325 @@
+% !TEX program = xelatex
+\documentclass[a4paper, 14pt]{report}
+
+% Подключение необходимых пакетов для XeLaTeX
+\usepackage{fontspec}                 % Для управления шрифтами
+\usepackage{polyglossia}              % Для поддержки многоязычности
+\setmainlanguage{russian}             % Установка основного языка
+\setotherlanguage{english}            % Дополнительный язык (если требуется)
+\newfontfamily\cyrillicfonttt{Courier New} % Шрифт для моноширинного текста
+% Установка основного шрифта
+\setmainfont{Times New Roman}
+
+% Пакеты для оформления документа
+\usepackage{geometry}                 % Параметры полей
+\usepackage{setspace}                 % Межстрочный интервал
+\usepackage{titlesec}                 % Настройка заголовков
+\usepackage{graphicx}                 % Вставка изображений
+\usepackage{caption}                  % Настройка подписей
+\usepackage{tocloft}                  % Настройка оглавления
+\usepackage{hyperref}                 % Гиперссылки
+\usepackage{listings}                 % Вставка исходного кода
+\usepackage{xcolor}                   % Цвета для оформления кода
+\usepackage{amsmath}
+\usepackage{tcolorbox}
+\usepackage{tabularx}
+
+% Настройка геометрии страницы
+\geometry{
+    a4paper,
+    left=30mm,
+    right=20mm,
+    top=10mm,
+    bottom=10mm,
+    footskip=0mm
+}
+
+
+% Межстрочный интервал 1.5
+\onehalfspacing
+
+% Настройка заголовков
+\titleformat{\chapter}[block]
+  {\centering\bfseries\Large} % Форматирование заголовка
+  {\chaptername\ \thechapter}{1em}{}
+
+\titleformat{\section}
+  {\centering\bfseries\large}
+  {\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\centering\bfseries\normalsize}
+  {\thesubsection}{1em}{}
+
+% Оглавление без точек после номеров
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+% Подключение пакета listingsutf8 для поддержки UTF-8 в листингах
+\usepackage{listingsutf8}
+
+% Включение ссылок в оглавлении
+\setcounter{tocdepth}{3}
+
+% Настройки для листингов кода
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny,
+    stepnumber=1,
+    numbersep=5pt,
+    tabsize=4,
+    breaklines=true,
+    breakatwhitespace=false,
+    showstringspaces=false,
+    frame=single
+}
+\makeatletter % see https://tex.stackexchange.com/a/320345
+\lst@InputCatcodes
+\def\lst@DefEC{%
+ \lst@CCECUse \lst@ProcessLetter
+  ^^80^^81^^82^^83^^84^^85^^86^^87^^88^^89^^8a^^8b^^8c^^8d^^8e^^8f%
+  ^^90^^91^^92^^93^^94^^95^^96^^97^^98^^99^^9a^^9b^^9c^^9d^^9e^^9f%
+  ^^a0^^a1^^a2^^a3^^a4^^a5^^a6^^a7^^a8^^a9^^aa^^ab^^ac^^ad^^ae^^af%
+  ^^b0^^b1^^b2^^b3^^b4^^b5^^b6^^b7^^b8^^b9^^ba^^bb^^bc^^bd^^be^^bf%
+  ^^c0^^c1^^c2^^c3^^c4^^c5^^c6^^c7^^c8^^c9^^ca^^cb^^cc^^cd^^ce^^cf%
+  ^^d0^^d1^^d2^^d3^^d4^^d5^^d6^^d7^^d8^^d9^^da^^db^^dc^^dd^^de^^df%
+  ^^e0^^e1^^e2^^e3^^e4^^e5^^e6^^e7^^e8^^e9^^ea^^eb^^ec^^ed^^ee^^ef%
+  ^^f0^^f1^^f2^^f3^^f4^^f5^^f6^^f7^^f8^^f9^^fa^^fb^^fc^^fd^^fe^^ff%
+  ^^^^20ac^^^^0153^^^^0152%
+  % Basic Cyrillic alphabet coverage
+  ^^^^0410^^^^0411^^^^0412^^^^0413^^^^0414^^^^0415^^^^0416^^^^0417%
+  ^^^^0418^^^^0419^^^^041a^^^^041b^^^^041c^^^^041d^^^^041e^^^^041f%
+  ^^^^0420^^^^0421^^^^0422^^^^0423^^^^0424^^^^0425^^^^0426^^^^0427%
+  ^^^^0428^^^^0429^^^^042a^^^^042b^^^^042c^^^^042d^^^^042e^^^^042f%
+  ^^^^0430^^^^0431^^^^0432^^^^0433^^^^0434^^^^0435^^^^0436^^^^0437%
+  ^^^^0438^^^^0439^^^^043a^^^^043b^^^^043c^^^^043d^^^^043e^^^^043f%
+  ^^^^0440^^^^0441^^^^0442^^^^0443^^^^0444^^^^0445^^^^0446^^^^0447%
+  ^^^^0448^^^^0449^^^^044a^^^^044b^^^^044c^^^^044d^^^^044e^^^^044f%
+  ^^^^0401^^^^0451%
+  %%%
+  ^^00}
+\lst@RestoreCatcodes
+\makeatother
+
+\newcommand{\chtb}[3]{
+  \begin{center}
+    \begin{tabularx}{#1}{X|X}
+    $\begin{aligned}
+          #2
+      \end{aligned}$ &
+    \begin{minipage}{1em}
+      $\Rightarrow$
+    \end{minipage}
+    $\begin{aligned}
+         #3
+      \end{aligned}$
+    \end{tabularx}
+  \end{center}
+}
+
+\lstdefinelanguage{YAML}{
+  keywords={true,false,null,y,n},
+  sensitive=true,
+  comment=[l]{\#},
+  morecomment=[s]{/*}{*/},
+  stringstyle=\color{red},
+  basicstyle=\ttfamily\small
+}
+
+\begin{document}
+
+
+% Титульный лист
+\begin{titlepage}
+    \centering
+    {\large Федеральное государственное автономное образовательное учреждение высшего образования}\\
+    {\large «Национальный исследовательский университет ИТМО»}\\[0.5cm]
+
+    {\large Факультет программной инженерии и компьютерной техники}\\[3cm]
+
+    {\large \bfseries Лабораторная работа 3}\\[0.5cm]
+    {\large \bfseries «Атака на алгоритм шифрования RSA посредством метода Ферма»}\\[1cm]
+
+    {\large Вариант № \underline{4}}\\[5cm]
+    \begin{flushright}
+        {\large \underline{Группа: P34102}}\\[0.5cm]
+        {\large \underline{Выполнил:} Лапин А.А.}\\[1cm]
+
+        {\large \underline{Проверил:}}\\
+        {\large Рыбаков С.Д.}\\[9cm]
+    \end{flushright}
+
+    {\large Санкт-Петербург}\\
+    {\large 2024г.}
+\end{titlepage}
+
+\setcounter{page}{2}
+% Оглавление
+\tableofcontents
+\newpage
+
+% Введение
+\chapter*{Введение}\phantomsection
+\addcontentsline{toc}{chapter}{Введение}
+Цель работы: изучить атаку на алгоритм шифрования RSA посредством метода Ферма.
+% Раздел 1
+\section*{Текст задания}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|l|l|l|l|}
+        \hline
+        Вариант        &
+        Модуль, N      &
+        Экспонента, е  &
+        Блок зашифрованного текста, C                                                                                                                                                                                                                 \\ \hline
+        4              &
+        89318473363897 &
+        2227661        &
+        \begin{tabular}[c]{@{}l@{}}3403106899606\\ 26746900101177\\ 67769260919924\\ 77873792354218\\ 15782947730235\\ 15100267747684\\ 28877721728826\\ 62898555111378\\ 4989704651236\\ 55293402838380\\ 4108112294245\\ 8492269964172\end{tabular} \\ \hline
+    \end{tabular}
+\end{table}
+% Раздел 2: Структура проекта
+
+\chapter*{Ход работы}\phantomsection
+\addcontentsline{toc}{chapter}{Ход работы}
+\section*{Теория:}\phantomsection
+\addcontentsline{toc}{section}{Теория}
+
+\begin{tcolorbox}[colback=white!95!gray, colframe=black, title=Метод факторизации Ферма]
+    Если $N > 0$ и $N$ нечетное, то существует взаимно однозначное соответствие между разложением на множители
+    $n = (x - y) \cdot (x + y)$ и представлением в виде разности квадратов $n = x^2 - y^2$ с $x > y > 0$.
+\end{tcolorbox}
+
+\begin{center}
+    \begin{tabularx}{\textwidth}{p{4em}|p{10em}|p{8em}|p{15em}}
+        $\begin{aligned}
+                  & p = x - y \\
+                  & q = x + y \\
+             \end{aligned}$          &
+        \begin{minipage}{1em}
+            $\Rightarrow$
+        \end{minipage}
+        $\begin{aligned}
+                  & x = p + q = 2x  \\
+                  & y = p - q = -2y \\
+             \end{aligned}$     &
+        \begin{minipage}{1em}
+            $\Rightarrow$
+        \end{minipage}
+        $\begin{aligned}
+                  & x = \frac{p + q}{2} \\
+                  & y = \frac{q - p}{2}
+             \end{aligned}$ &
+        \begin{minipage}{1em}
+            $\Rightarrow$
+        \end{minipage}
+        $\begin{aligned}
+                  & N = \left( \frac{p + q}{2} \right)^2 - \left( \frac{q - p}{2} \right)^2 \\
+             \end{aligned}$
+    \end{tabularx}
+\end{center}
+
+Если $p$ и $q$ близки друг к другу, то $\left( \frac{q - p}{2} \right)^2 \to 0$, и $N \approx \left( \frac{p + q}{2} \right)^2$.
+
+Пусть $t = \frac{p + q}{2}$, а $s = \frac{q - p}{2}$, тогда $N = t^2 - s^2$.
+
+Тогда $t^2 - N = s^2$.
+
+$t \approx \sqrt{N}$.
+
+Найдем $t$ методом перебора, начиная с $\lceil \sqrt{N} \rceil$.
+
+В результате вычисления $t^2 - N$ мы должны получить квадрат некоторого целого числа $s$.
+
+$p = t + s$ и $q = t - s$.
+
+$\phi(N) = (p - 1) \cdot (q - 1)$.
+
+$d = e^{-1} \mod \phi(N)$.
+
+\section*{Вычисление руками:}\phantomsection
+\addcontentsline{toc}{section}{Вычисление руками}
+
+$t = \lceil \sqrt{N} \rceil = 9450846$
+
+$t^2 - N = 9450846^2 - 89318473363897 = 16751819$
+
+$s = \sqrt{16751819} = 4092.89$\\[0.5cm]
+
+
+$t = 9450846 + 1 = 9450847$
+
+$t^2 - N = 9450847^2 - 89318473363897 = 35653512$
+
+$s = \sqrt{35653512} = 5971.05$\\[0.5cm]
+
+
+
+$t = 9450847 + 1 = 9450848$
+
+$t^2 - N = 9450848^2 - 89318473363897 = 54555207$
+
+$s = \sqrt{54555207} = 7386.14$\\[0.5cm]
+
+
+
+$t = 9450848 + 1 = 9450849$
+
+$t^2 - N = 9450849^2 - 89318473363897 = 73456904$
+
+$s = \sqrt{73456904} = 8570.7$\\[0.5cm]
+
+
+$t = 9450849 + 1 = 9450850$
+
+$t^2 - N = 9450850^2 - 89318473363897 = 92358603$
+
+$s = \sqrt{92358603} = 9610.3$\\[0.5cm]
+
+
+$t = 9450850 + 1 = 9450851$
+
+$t^2 - N = 9450851^2 - 89318473363897 = 111260304$
+
+$s = \sqrt{111260304} = 10548.0$\\[0.5cm]
+
+
+$p = t + s = 9450851 + 10548 = 9461399$
+
+$q = t - s = 9450851 - 10548 = 9440303$
+
+$\phi(N) = (p - 1) \cdot (q - 1) = 9461398 \cdot 9440302 = 89318454462196$
+
+$d = e^{-1} \mod \phi(N) = 2227661^{-1} \mod 89318454462196 = 15910526683025$
+
+\section*{Решение на Python:}\phantomsection
+\addcontentsline{toc}{section}{Решение на Python}
+\lstinputlisting[language=Python, caption=main.py]{../main.py}
+\lstinputlisting[language=YAML, caption=config.yaml]{../config.yaml}
+
+% Раздел 4: Результаты работы программы
+\section*{Результаты работы программы}\phantomsection
+\addcontentsline{toc}{section}{Результаты работы программы}
+
+\begin{lstlisting}[language=YAML, caption=Вывод в консоль]
+> python main.py
+N = 89318473363897
+e = 2227661
+Ciphertexts = [3403106899606, 26746900101177, 67769260919924, 77873792354218, 15782947730235, 15100267747684, 28877721728826, 62898555111378, 4989704651236, 55293402838380, 4108112294245, 8492269964172]
+Factoring N using Fermat's method...
+t = 9450851, s = 10548
+Factors found: p = 9461399, q = 9440303
+phi(N) = 89318454462196
+Private exponent d = 15910526683025
+Decrypting ciphertext blocks...
+Plaintext: одномаршрутный (single route) и всемаршрутный (a
+\end{lstlisting}
+\chapter*{Заключение}\phantomsection
+\addcontentsline{toc}{chapter}{Заключение}
+В ходе выполнения лабораторной работы была реализована атака на алгоритм шифрования RSA посредством метода Ферма.
+
+
+\end{document}
