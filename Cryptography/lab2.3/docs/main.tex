@@ -1,0 +1,246 @@
+% !TEX program = xelatex
+\documentclass[a4paper, 14pt]{report}
+
+% Подключение необходимых пакетов для XeLaTeX
+\usepackage{fontspec}                 % Для управления шрифтами
+\usepackage{polyglossia}              % Для поддержки многоязычности
+\setmainlanguage{russian}             % Установка основного языка
+\setotherlanguage{english}            % Дополнительный язык (если требуется)
+\newfontfamily\cyrillicfonttt{Courier New} % Шрифт для моноширинного текста
+% Установка основного шрифта
+\setmainfont{Times New Roman}
+
+% Пакеты для оформления документа
+\usepackage{geometry}                 % Параметры полей
+\usepackage{setspace}                 % Межстрочный интервал
+\usepackage{titlesec}                 % Настройка заголовков
+\usepackage{graphicx}                 % Вставка изображений
+\usepackage{caption}                  % Настройка подписей
+\usepackage{tocloft}                  % Настройка оглавления
+\usepackage{hyperref}                 % Гиперссылки
+\usepackage{listings}                 % Вставка исходного кода
+\usepackage{xcolor}                   % Цвета для оформления кода
+\usepackage{amsmath}
+\usepackage{tcolorbox}
+\usepackage{tabularx}
+\usepackage{multirow}
+
+% Настройка геометрии страницы
+\geometry{
+    a4paper,
+    left=30mm,
+    right=20mm,
+    top=10mm,
+    bottom=10mm,
+    footskip=0mm
+}
+
+
+% Межстрочный интервал 1.5
+\onehalfspacing
+
+% Настройка заголовков
+\titleformat{\chapter}[block]
+  {\centering\bfseries\Large} % Форматирование заголовка
+  {\chaptername\ \thechapter}{1em}{}
+
+\titleformat{\section}
+  {\centering\bfseries\large}
+  {\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\centering\bfseries\normalsize}
+  {\thesubsection}{1em}{}
+
+% Оглавление без точек после номеров
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+% Подключение пакета listingsutf8 для поддержки UTF-8 в листингах
+\usepackage{listingsutf8}
+
+% Включение ссылок в оглавлении
+\setcounter{tocdepth}{3}
+
+% Настройки для листингов кода
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny,
+    stepnumber=1,
+    numbersep=5pt,
+    tabsize=4,
+    breaklines=true,
+    breakatwhitespace=false,
+    showstringspaces=false,
+    frame=single
+}
+\makeatletter % see https://tex.stackexchange.com/a/320345
+\lst@InputCatcodes
+\def\lst@DefEC{%
+ \lst@CCECUse \lst@ProcessLetter
+  ^^80^^81^^82^^83^^84^^85^^86^^87^^88^^89^^8a^^8b^^8c^^8d^^8e^^8f%
+  ^^90^^91^^92^^93^^94^^95^^96^^97^^98^^99^^9a^^9b^^9c^^9d^^9e^^9f%
+  ^^a0^^a1^^a2^^a3^^a4^^a5^^a6^^a7^^a8^^a9^^aa^^ab^^ac^^ad^^ae^^af%
+  ^^b0^^b1^^b2^^b3^^b4^^b5^^b6^^b7^^b8^^b9^^ba^^bb^^bc^^bd^^be^^bf%
+  ^^c0^^c1^^c2^^c3^^c4^^c5^^c6^^c7^^c8^^c9^^ca^^cb^^cc^^cd^^ce^^cf%
+  ^^d0^^d1^^d2^^d3^^d4^^d5^^d6^^d7^^d8^^d9^^da^^db^^dc^^dd^^de^^df%
+  ^^e0^^e1^^e2^^e3^^e4^^e5^^e6^^e7^^e8^^e9^^ea^^eb^^ec^^ed^^ee^^ef%
+  ^^f0^^f1^^f2^^f3^^f4^^f5^^f6^^f7^^f8^^f9^^fa^^fb^^fc^^fd^^fe^^ff%
+  ^^^^20ac^^^^0153^^^^0152%
+  % Basic Cyrillic alphabet coverage
+  ^^^^0410^^^^0411^^^^0412^^^^0413^^^^0414^^^^0415^^^^0416^^^^0417%
+  ^^^^0418^^^^0419^^^^041a^^^^041b^^^^041c^^^^041d^^^^041e^^^^041f%
+  ^^^^0420^^^^0421^^^^0422^^^^0423^^^^0424^^^^0425^^^^0426^^^^0427%
+  ^^^^0428^^^^0429^^^^042a^^^^042b^^^^042c^^^^042d^^^^042e^^^^042f%
+  ^^^^0430^^^^0431^^^^0432^^^^0433^^^^0434^^^^0435^^^^0436^^^^0437%
+  ^^^^0438^^^^0439^^^^043a^^^^043b^^^^043c^^^^043d^^^^043e^^^^043f%
+  ^^^^0440^^^^0441^^^^0442^^^^0443^^^^0444^^^^0445^^^^0446^^^^0447%
+  ^^^^0448^^^^0449^^^^044a^^^^044b^^^^044c^^^^044d^^^^044e^^^^044f%
+  ^^^^0401^^^^0451%
+  %%%
+  ^^00}
+\lst@RestoreCatcodes
+\makeatother
+
+\newcommand{\chtb}[3]{
+  \begin{center}
+    \begin{tabularx}{#1}{X|X}
+    $\begin{aligned}
+          #2
+      \end{aligned}$ &
+    \begin{minipage}{1em}
+      $\Rightarrow$
+    \end{minipage}
+    $\begin{aligned}
+         #3
+      \end{aligned}$
+    \end{tabularx}
+  \end{center}
+}
+
+\lstdefinelanguage{YAML}{
+  keywords={true,false,null,y,n},
+  sensitive=true,
+  comment=[l]{\#},
+  morecomment=[s]{/*}{*/},
+  stringstyle=\color{red},
+  basicstyle=\ttfamily\small
+}
+
+\begin{document}
+
+
+% Титульный лист
+\begin{titlepage}
+    \centering
+    {\large Федеральное государственное автономное образовательное учреждение высшего образования}\\
+    {\large «Национальный исследовательский университет ИТМО»}\\[0.5cm]
+
+    {\large Факультет программной инженерии и компьютерной техники}\\[3cm]
+
+    {\large \bfseries Лабораторная работа 5}\\[0.5cm]
+    {\large \bfseries «Атака на алгоритм шифрования RSA методом бесключевого
+    чтения»}\\[1cm]
+
+    {\large Вариант № \underline{12}}\\[5cm]
+    \begin{flushright}
+        {\large \underline{Группа: P34102}}\\[0.5cm]
+        {\large \underline{Выполнил:} Лапин А.А.}\\[1cm]
+
+        {\large \underline{Проверил:}}\\
+        {\large Рыбаков С.Д.}\\[9cm]
+    \end{flushright}
+
+    {\large Санкт-Петербург}\\
+    {\large 2024г.}
+\end{titlepage}
+
+\setcounter{page}{2}
+% Оглавление
+\tableofcontents
+\newpage
+
+% Введение
+\chapter*{Введение}\phantomsection
+\addcontentsline{toc}{chapter}{Введение}
+Цель работы: изучить атаку на алгоритм шифрования RSA посредством метода бесключевого чтения.
+% Раздел 1
+\section*{Текст задания}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|ll|ll|}
+    \hline
+    \multirow{2}{*}{Вариант} &
+      \multirow{2}{*}{Модуль, N} &
+      \multicolumn{2}{l|}{Экспоненты} &
+      \multicolumn{2}{l|}{Блок зашифрованного текста} \\ \cline{3-6} 
+     &
+       &
+      \multicolumn{1}{l|}{e1} &
+      e2 &
+      \multicolumn{1}{l|}{C1} &
+      C2 \\ \hline
+    12 &
+      385751370271 &
+      \multicolumn{1}{l|}{365797} &
+      1109663 &
+      \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}58541562205\\ 167003685579\\ 381877628242\\ 256218527098\\ 164244249864\\ 6588741823\\ 180308234660\end{tabular}} &
+      \begin{tabular}[c]{@{}l@{}}78032032470\\ 13064174635\\ 326727914830\\ 364066420370\\ 177576861402\\ 65863828523\\ 111437045566\end{tabular} \\ \hline
+    \end{tabular}
+    \end{table}
+% Раздел 2: Структура проекта
+
+\chapter*{Ход работы}\phantomsection
+\addcontentsline{toc}{chapter}{Ход работы}
+Будем строить последовательность: 
+$c_1 = c, ~c_i = c_{i-1}^{e} \mod N, i > 1$.
+\begin{center}
+    \begin{tabularx}{\textwidth}{p{0.2\textwidth}|X}
+    $\begin{aligned}
+          & N = 385751370271 \\
+          & e_1 = 365797 \\
+          & e_2 = 1109663 \\
+          & c_1 = 58541562205... \\
+          & c_2 = 78032032470... \\
+      \end{aligned}$ &
+    \begin{minipage}{1em}
+      $\Rightarrow$
+    \end{minipage}
+    $\begin{aligned}
+        & c_1 = m^{e_1} \mod N \\
+        & c_2 = m^{e_2} \mod N \\
+        & \text{Используя расширенный алгоритм Евклида, находим } r \text{ и } s \text{, такие что } r e_1 + s e_2 = 1\\
+        & \text{Тогда } m = c_1^r c_2^s \mod N
+      \end{aligned}$
+    \end{tabularx}
+  \end{center}
+
+\section*{Программная реализация}\phantomsection
+\addcontentsline{toc}{section}{Программная реализация}
+\lstinputlisting[language=Python, caption=main.py]{../main.py}
+\lstinputlisting[language=YAML, caption=config.yaml]{../config.yaml}
+
+
+
+% Раздел 4: Результаты работы программы
+\section*{Результаты работы программы}\phantomsection
+\addcontentsline{toc}{section}{Результаты работы программы}
+
+\begin{lstlisting}[language=YAML, caption=Вывод в консоль]
+> python main.py
+N = 385751370271
+e1 = 365797
+e2 = 1109663
+c1 = [58541562205, 167003685579, 381877628242, 256218527098, 164244249864, 6588741823, 180308234660, 174572441677, 259951955034, 378589342820, 319378579620, 21405495597, 226860843155]
+c2 = [78032032470, 13064174635, 326727914830, 364066420370, 177576861402, 65863828523, 111437045566, 124743274954, 119577259869, 85769669875, 4688914942, 261002397567, 341722428571]
+Performing Infinite Reading Attack on ciphertext pairs...
+Decrypting Ciphertext Pairs: 100%|████████████████████████████████| 13/13 [00:00<00:00, 53667.28it/s]
+Plaintext: из исходного пакета, в котором переданы эти 900 б.
+\end{lstlisting}
+\chapter*{Заключение}\phantomsection
+\addcontentsline{toc}{chapter}{Заключение}
+В ходе выполнения лабораторной работы была реализована атака на алгоритм шифрования RSA методом бесключевого чтения.
+\end{document}

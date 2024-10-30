@@ -1,0 +1,23 @@
+# RSA Configuration Parameters
+
+# The modulus N, which is the product of two primes p and q.
+N: 290716329017
+
+# The public exponent e.
+e: 497729
+
+# The list of ciphertext blocks to be decrypted.
+c:
+  - 1135414239
+  - 169213008965
+  - 175441050863
+  - 109545918774
+  - 123669279758
+  - 149542889269
+  - 43068653151
+  - 32806195453
+  - 285151390718
+  - 137668394392
+  - 140567677417
+  - 176736386447
+  - 218957656245
