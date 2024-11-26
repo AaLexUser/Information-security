@@ -32,9 +32,9 @@ def extended_gcd(a, b):
         return (gcd, x, y)
 
 
-def infinite_reading_attack(y1, e1, y2, e2, N):
+def reading_attack(y1, e1, y2, e2, N):
     """
-    Perform RSA cryptanalysis using the Infinite Reading Attack (Бесключевое чтение).
+    Perform RSA cryptanalysis using the Reading Attack (Бесключевое чтение).
     Given two ciphertexts y1 = x^e1 mod N and y2 = x^e2 mod N,
     recover the original plaintext x.
     """
@@ -65,13 +65,13 @@ def main(cfg: DictConfig):
     print(f"c1 = {c1}")
     print(f"c2 = {c2}")
 
-    # Perform Infinite Reading Attack on each ciphertext pair
-    print("Performing Infinite Reading Attack on ciphertext pairs...")
+    # Perform Reading Attack on each ciphertext pair
+    print("Performing Reading Attack on ciphertext pairs...")
     decrypted_bytes = b''
 
     for idx, (y1, y2) in tqdm(enumerate(zip(c1, c2), start=1), total=len(c1), desc="Decrypting Ciphertext Pairs"):
         logger.debug(f"Decrypting ciphertext pair {idx}: y1={y1}, y2={y2}")
-        plaintext_int = infinite_reading_attack(y1, e1, y2, e2, N)
+        plaintext_int = reading_attack(y1, e1, y2, e2, N)
         if plaintext_int is None:
             print(f"Failed to decrypt ciphertext pair {idx}.")
             continue

@@ -172,51 +172,51 @@
 \begin{table}[h]
     \centering
     \begin{tabular}{|l|l|ll|ll|}
-    \hline
-    \multirow{2}{*}{Вариант} &
-      \multirow{2}{*}{Модуль, N} &
-      \multicolumn{2}{l|}{Экспоненты} &
-      \multicolumn{2}{l|}{Блок зашифрованного текста} \\ \cline{3-6} 
-     &
-       &
-      \multicolumn{1}{l|}{e1} &
-      e2 &
-      \multicolumn{1}{l|}{C1} &
-      C2 \\ \hline
-    12 &
-      385751370271 &
-      \multicolumn{1}{l|}{365797} &
-      1109663 &
-      \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}58541562205\\ 167003685579\\ 381877628242\\ 256218527098\\ 164244249864\\ 6588741823\\ 180308234660\end{tabular}} &
-      \begin{tabular}[c]{@{}l@{}}78032032470\\ 13064174635\\ 326727914830\\ 364066420370\\ 177576861402\\ 65863828523\\ 111437045566\end{tabular} \\ \hline
+        \hline
+        \multirow{2}{*}{Вариант}                                                                                                                                         &
+        \multirow{2}{*}{Модуль, N}                                                                                                                                       &
+        \multicolumn{2}{l|}{Экспоненты}                                                                                                                                  &
+        \multicolumn{2}{l|}{Блок зашифрованного текста}                                                                                                                    \\ \cline{3-6}
+                                                                                                                                                                         &
+                                                                                                                                                                         &
+        \multicolumn{1}{l|}{e1}                                                                                                                                          &
+        e2                                                                                                                                                               &
+        \multicolumn{1}{l|}{C1}                                                                                                                                          &
+        C2                                                                                                                                                                 \\ \hline
+        12                                                                                                                                                               &
+        385751370271                                                                                                                                                     &
+        \multicolumn{1}{l|}{365797}                                                                                                                                      &
+        1109663                                                                                                                                                          &
+        \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}58541562205\\ 167003685579\\ 381877628242\\ 256218527098\\ 164244249864\\ 6588741823\\ 180308234660\end{tabular}} &
+        \begin{tabular}[c]{@{}l@{}}78032032470\\ 13064174635\\ 326727914830\\ 364066420370\\ 177576861402\\ 65863828523\\ 111437045566\end{tabular}                        \\ \hline
     \end{tabular}
-    \end{table}
+\end{table}
 % Раздел 2: Структура проекта
 
 \chapter*{Ход работы}\phantomsection
 \addcontentsline{toc}{chapter}{Ход работы}
-Будем строить последовательность: 
+Будем строить последовательность:
 $c_1 = c, ~c_i = c_{i-1}^{e} \mod N, i > 1$.
 \begin{center}
     \begin{tabularx}{\textwidth}{p{0.2\textwidth}|X}
-    $\begin{aligned}
-          & N = 385751370271 \\
-          & e_1 = 365797 \\
-          & e_2 = 1109663 \\
-          & c_1 = 58541562205... \\
-          & c_2 = 78032032470... \\
-      \end{aligned}$ &
-    \begin{minipage}{1em}
-      $\Rightarrow$
-    \end{minipage}
-    $\begin{aligned}
-        & c_1 = m^{e_1} \mod N \\
-        & c_2 = m^{e_2} \mod N \\
-        & \text{Используя расширенный алгоритм Евклида, находим } r \text{ и } s \text{, такие что } r e_1 + s e_2 = 1\\
-        & \text{Тогда } m = c_1^r c_2^s \mod N
-      \end{aligned}$
+        $\begin{aligned}
+                  & N = 385751370271     \\
+                  & e_1 = 365797         \\
+                  & e_2 = 1109663        \\
+                  & c_1 = 58541562205... \\
+                  & c_2 = 78032032470... \\
+             \end{aligned}$ &
+        \begin{minipage}{1em}
+            $\Rightarrow$
+        \end{minipage}
+        $\begin{aligned}
+                  & c_1 = m^{e_1} \mod N                                                                                         \\
+                  & c_2 = m^{e_2} \mod N                                                                                         \\
+                  & \text{Используя расширенный алгоритм Евклида, находим } r \text{ и } s \text{, такие что } r e_1 + s e_2 = 1 \\
+                  & \text{Тогда } m = c_1^r c_2^s \mod N
+             \end{aligned}$
     \end{tabularx}
-  \end{center}
+\end{center}
 
 \section*{Программная реализация}\phantomsection
 \addcontentsline{toc}{section}{Программная реализация}

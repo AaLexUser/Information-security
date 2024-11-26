@@ -6,6 +6,8 @@
 *.out
 *.synctex.gz
 *.toc
+*.bcf
+*.run.xml
 # OS generated files #
 ######################
 .DS_Store
