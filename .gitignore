@@ -8,6 +8,8 @@
 *.toc
 *.bcf
 *.run.xml
+*.bbl
+*.blg
 # OS generated files #
 ######################
 .DS_Store
